@@ -106,4 +106,5 @@ Feel free to give any suggest or remark. Thanks you for any bug reported.
 Syntax for attributes is inspired from https://github.com/lihaoyi/scalatags.
 
 I found the image for the example on https://cutefunnyanimalz.blogspot.fr/
+
 [[./example/example-image.jpg]]
