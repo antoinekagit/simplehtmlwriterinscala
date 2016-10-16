@@ -33,7 +33,8 @@ The library is built on very simple basic classes :
 val myIdAttr = AttrStr("id", "span-12")
 val mySpan = Node("span", Seq(myIdAttr), Seq(StrData("hey")))
 val myDiv = Node("div", Seq.empty, Seq(Node("br", Seq.empty, Seq.empty)))
-val myImg = Leaf("img", Seq(AttrStr("src", "my-img.jpg")))
+val myImg = Leaf("img", Seq(
+              AttrStr("src", "my-img.jpg"), AttrStr("alt", "some-text")))
 #+END_SRC
 
 All the control structures (~if~, ~map~, ...) are provided by the Scala standard library. They are powerful and you already know them. 
@@ -45,7 +46,7 @@ Syntaxic sugar is provided so you can write the previous code like this :
 #+BEGIN_SRC scala
 val mySpan = span(id := "span-12")("hey")
 val myDiv = div(br())
-val myImg = img(src := "my-img.jpg")
+val myImg = img(src := "my-img.jpg", alt := "some-text")
 #+END_SRC
 
 Here ~span~ and ~img~ are builders of the ~Basic~ classes above.
