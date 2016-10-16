@@ -56,8 +56,8 @@ object Example {
         h1("Index"),
         ul {
           for (p <- posts filter (_.author.nonEmpty) map postToHTML)
-          yield li(p) }),
-      if ("today" != "yesterday") empty else footer("this is footer"))
+          yield li(p) },
+      if ("today" != "yesterday") empty else footer("this is footer")))
     
     println("<!DOCTYPE html>" + indexHTML)
   }
