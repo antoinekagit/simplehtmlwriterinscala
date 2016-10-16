@@ -55,8 +55,8 @@ object Example {
       body(
         h1("Index"),
         ul {
-          val psh = posts filter (_.author.nonEmpty) map postToHTML
-          psh.childs map (li(_)) }),
+          for (p <- posts filter (_.author.nonEmpty) map postToHTML)
+          yield li(p) }),
       if ("today" != "yesterday") empty else footer("this is footer"))
     
     println("<!DOCTYPE html>" + indexHTML)

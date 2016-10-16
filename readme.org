@@ -16,8 +16,8 @@ val indexHTML = html(
   body(
     h1("Index"),
     ul {
-      val psh = posts filter (_.author.nonEmpty) map postToHTML
-      psh.childs map (li(_)) }),
+      for (p <- posts filter (_.author.nonEmpty) map postToHTML)
+      yield li(p) }),
   if ("today" != "yesterday") empty else footer("this is footer"))
 #+END_SRC
 
@@ -25,17 +25,18 @@ val indexHTML = html(
 
 In less than 150 simple lines (counting comments) the library provides these features :
 
-*** simple scala classes
+*** Simple basic classes
 
 The library is built on very simple basic classes :
 
 #+BEGIN_SRC scala
 val myIdAttr = AttrStr("id", "span-12")
 val mySpan = Node("span", Seq(myIdAttr), Seq(StrData("hey")))
+val myDiv = Node("div", Seq.empty, Seq(Node("br", Seq.empty, Seq.empty)))
 val myImg = Leaf("img", Seq(AttrStr("src", "my-img.jpg")))
 #+END_SRC
 
-All the control structures (~if~, ~map~, ...) are provided by Scala standard library. They are powerful and you already know them. 
+All the control structures (~if~, ~map~, ...) are provided by the Scala standard library. They are powerful and you already know them. 
 
 *** Short and pretty syntax
 
@@ -43,17 +44,18 @@ Syntaxic sugar is provided so you can write the previous code like this :
 
 #+BEGIN_SRC scala
 val mySpan = span(id := "span-12")("hey")
+val myDiv = div(br())
 val myImg = img(src := "my-img.jpg")
 #+END_SRC
 
 Here ~span~ and ~img~ are builders of the ~Basic~ classes above.
 You just have to add the import of ~HTML5~ object (see below or example).
 
-*** String, seq, empty nodes and implicits
+*** String, sequences, empty nodes and implicits
 
 Strings are added like this ~StrData("my-string")~.
 
-You will often need to write or return a value which is a collection of HTML nodes, but not necessarily wrapped by an HTML node. For this you can use ~SeqNode~ like this ~SeqNode(Seq(span(...), br(), ul()))~.
+You will often need to write or return a value which is a sequence of HTML nodes, but not necessarily wrapped by an HTML node. For this you can use ~SeqNode~ like this ~SeqNode(Seq(span(...), br(), ul()))~.
 
 You may also need the empty node ~empty~ value like in ~if (myCondition) then span(...) else empty~.
 
@@ -65,13 +67,13 @@ A collection of definitions for HTML5 is available in this object. Attributes ar
 
 ** Example
 
-There is a little example with the writing of some simple blog posts. You can find it in the 'example' directory.
+There is a little example with the writing of some simple blog posts. You can find it in the [[./example]] directory.
 
 ** Future features
    
-- other kind of attributes classes (enum kind, for example ~position~ attribute)
-- pretty printing
-- exploration methods
+- other kind of attributes classes (enum kind, for example for the ~position~ CSS attribute)
+- propose pretty printing
+- exploration methods (more specific than scala standard ones)
 - more complete covering of Html5
 - propose special characters checking
 
@@ -85,15 +87,15 @@ Basic classes for building nodes and attributes. Simply case classes with overri
 
 *** LessStrict
 
-Secondary classes for less strict API syntax, meant for Html5 object (see below). Simple overloading of ~apply~ method and an operator ~:=~ for attributes.
+~Basic~ classes builders for less strict API syntax, meant for ~Html5~ object (see below). Simple overloading of ~apply~ method and an operator ~:=~ for attributes.
 
 *** Implicits
 
-Two implicits conversions for convenience. They are separated from ~LessStrict~ so you do not get them by surprise.
+Two implicits conversions for convenience. They are separated so you do not get them by surprise.
 
 *** Html5
 
-A collection of aliases for Html5. It is not exhaustive but it is very easy to add the items you miss. It is using ~LessStrict~ classes.
+A collection of aliases for HTML5. It is not exhaustive but it is very easy to add items you miss. It is using ~LessStrict~ classes.
 
 ** Help
 
