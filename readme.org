@@ -6,6 +6,8 @@
 - simple and customizable library
 - short and pretty user syntax
 
+Why ? Because it is not good to handwrite HTML. The power of a programming language (Scala) allows to automatize simply, saving your time and preventing mistakes.
+
 ** Screenshot from example
 
 #+BEGIN_SRC scala
