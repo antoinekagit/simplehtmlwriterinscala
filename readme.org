@@ -30,6 +30,20 @@ val indexHTML = html(
 
 In less than 150 simple lines (counting comments) the library provides these features :
 
+*** Simple basic classes
+
+The library is built on very simple basic classes :
+
+#+BEGIN_SRC scala
+val myIdAttr = AttrStr("id", "span-12")
+val mySpan = Node("span", Seq(myIdAttr), Seq(StrData("hey")))
+val myDiv = Node("div", Seq.empty, Seq(Leaf("br", Seq.empty)))
+val myImg = Leaf("img", Seq(
+              AttrStr("src", "my-img.jpg"), AttrStr("alt", "some-text")))
+#+END_SRC
+
+All the control structures (~if~, ~map~, ...) are provided by the Scala standard library. They are powerful and you already know them. 
+
 *** Short and pretty syntax
 
 Syntaxic sugar is provided so you can write the previous code like this :
@@ -52,20 +66,6 @@ You will often need to write or return a value which is a sequence of HTML nodes
 You may also need the empty node ~empty~ value like in ~if (myCondition) then span(...) else empty~.
 
 To prevent having to write ~StrData~ and ~SeqNode~, you can import the ~Implicits~ object (see below). Automatic conversion will be done everywhere it is possible. So ~span(StrData("my-string"))~ becomes ~span("my-string")~, and ~div(SeqNode(List(span(...), br(), ul())))~ becomes ~div(List(span(...), br(), ul()))~.
-
-*** Simple basic classes
-
-The library is built on very simple basic classes :
-
-#+BEGIN_SRC scala
-val myIdAttr = AttrStr("id", "span-12")
-val mySpan = Node("span", Seq(myIdAttr), Seq(StrData("hey")))
-val myDiv = Node("div", Seq.empty, Seq(Leaf("br", Seq.empty)))
-val myImg = Leaf("img", Seq(
-              AttrStr("src", "my-img.jpg"), AttrStr("alt", "some-text")))
-#+END_SRC
-
-All the control structures (~if~, ~map~, ...) are provided by the Scala standard library. They are powerful and you already know them. 
 
 *** Html5
 
