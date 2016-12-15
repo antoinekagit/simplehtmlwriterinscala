@@ -8,7 +8,7 @@
 
 Why ? Because it is not good to handwrite HTML. The power of a programming language (Scala) allows to automatize simply, saving your time and preventing mistakes.
 
-** Screenshot from example
+** Syntax example
 
 #+BEGIN_SRC scala
 val indexHTML = html(
@@ -17,29 +17,18 @@ val indexHTML = html(
     style("span.bold { font-weight: bold }")),
   body(
     h1("Index"),
+    h2(id := "second-title")("Post list:"),
     ul {
       for (p <- posts filter (_.author.nonEmpty) map postToHTML)
       yield li(p) },
     if ("today" != "yesterday") empty else footer("this is footer")))
 #+END_SRC
 
+   You will find a more complete one in [[./example/]] section
+
 ** Features
 
 In less than 150 simple lines (counting comments) the library provides these features :
-
-*** Simple basic classes
-
-The library is built on very simple basic classes :
-
-#+BEGIN_SRC scala
-val myIdAttr = AttrStr("id", "span-12")
-val mySpan = Node("span", Seq(myIdAttr), Seq(StrData("hey")))
-val myDiv = Node("div", Seq.empty, Seq(Node("br", Seq.empty, Seq.empty)))
-val myImg = Leaf("img", Seq(
-              AttrStr("src", "my-img.jpg"), AttrStr("alt", "some-text")))
-#+END_SRC
-
-All the control structures (~if~, ~map~, ...) are provided by the Scala standard library. They are powerful and you already know them. 
 
 *** Short and pretty syntax
 
@@ -63,6 +52,20 @@ You will often need to write or return a value which is a sequence of HTML nodes
 You may also need the empty node ~empty~ value like in ~if (myCondition) then span(...) else empty~.
 
 To prevent having to write ~StrData~ and ~SeqNode~, you can import the ~Implicits~ object (see below). Automatic conversion will be done everywhere it is possible. So ~span(StrData("my-string"))~ becomes ~span("my-string")~, and ~div(SeqNode(List(span(...), br(), ul())))~ becomes ~div(List(span(...), br(), ul()))~.
+
+*** Simple basic classes
+
+The library is built on very simple basic classes :
+
+#+BEGIN_SRC scala
+val myIdAttr = AttrStr("id", "span-12")
+val mySpan = Node("span", Seq(myIdAttr), Seq(StrData("hey")))
+val myDiv = Node("div", Seq.empty, Seq(Leaf("br", Seq.empty)))
+val myImg = Leaf("img", Seq(
+              AttrStr("src", "my-img.jpg"), AttrStr("alt", "some-text")))
+#+END_SRC
+
+All the control structures (~if~, ~map~, ...) are provided by the Scala standard library. They are powerful and you already know them. 
 
 *** Html5
 
