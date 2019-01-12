@@ -62,6 +62,7 @@ package simplehtmlwriterinscala {
       def := = apply _
     }
     case class AttrListStrBuilder (name:String) {
+      def apply (value:String) = AttrListStr(name, Seq(value))
       def apply (values:String*) = AttrListStr(name, values)
       def := = apply _
     }
@@ -88,6 +89,7 @@ package simplehtmlwriterinscala {
     implicit def string_to_AbsNode (str:String) = StrData(str)
     // conversion from sequence to seq node (see Basic above)
     implicit def seq_to_AbsNode (sn:Seq[AbsNode]) = SeqNode(sn)
+    implicit def mutiter_to_AbsNode [X<:AbsNode] (in:scala.collection.mutable.Iterable[X]) :SeqNode = SeqNode(in.toSeq)
   }
 
   // Here are a collection of methods to build HTML5 nodes and attributes
@@ -106,6 +108,7 @@ package simplehtmlwriterinscala {
       lazy val rel = AttrStrBuilder("rel")
       lazy val src = AttrStrBuilder("src")
       lazy val titleAttr = AttrStrBuilder("title")
+      def data (name:String) = AttrStrBuilder("data-" + name)
     }
 
     // 'block' nodes
